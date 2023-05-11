@@ -118,4 +118,4 @@ elif titrant_v_used > eq_point:
     print("\nThe solution's pH with " + str(titrant_v_used) + " mL of titrant added is " + f'{ph:.4f}' + ".")
 
 else:
-    print("ainda vou escrever aqui")
+    print("Please, enter valid values for molarity and volume.")
