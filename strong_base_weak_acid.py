@@ -144,6 +144,40 @@ elif titrant_v_used == eq_point:
     print("\nThe solution's pH with " + str(titrant_v_used) + " mL of titrant added is " + f'{ph:.4f}' + ".")
 
 
-#elif titrant_v_used > eq_point:
+elif titrant_v_used > eq_point:
 
-#else:
+    # primeiramente, é calculado o nº de mols do analito (H3O+)
+    n_mol_analyte = analyte_mm * (analyte_v / 1000)
+    print("\nnº mol H3O+ = " + '{} * ({} / 1000) = '.format(f'{analyte_mm:.4f}', f'{analyte_v:.4f}') + f'{n_mol_analyte:.4f}')
+    print("The mol number of the analyte is " + f'{n_mol_analyte:.4f}' + ".")
+
+    # em seguida, calcula-se o nº de mols do titulante (OH-)
+    n_mol_titrant = titrant_mm * (titrant_v_used / 1000)
+    print("\nnº mol OH- = " + '{} * ({} / 1000) = '.format(f'{titrant_mm:.4f}', f'{titrant_v_used:.4f}') + f'{n_mol_titrant:.4f}')
+    print("The mol number of the titrant volume used is " + f'{n_mol_titrant:.4f}' + ".")
+
+    # agora, calcula-se o número de mols de OH- em excesso no analito
+    n_mol_analyte_ex = n_mol_titrant - n_mol_analyte
+    print("\nnº mol H3O+ left = " + '{} - {} = '.format(f'{n_mol_titrant:.4f}', f'{n_mol_analyte:.4f}') + f'{n_mol_analyte_ex:.4f}')
+    print("The mol number of the titrant excess amount is " + f'{n_mol_analyte_ex:.4f}' + ".")
+    
+    # com o número de mols, encontra-se a concentração do excesso de OH- utilizando tambem o novo volume total
+    titrant_nmm = n_mol_analyte_ex / (analyte_v / 1000 + titrant_v_used / 1000)
+    print("\nMM titrant excess = " + '{} / ({} + {}) = '.format(f'{n_mol_analyte_ex:.4f}', f'{analyte_v:.4f}', f'{titrant_v_used:.4f}') + f'{titrant_nmm:.4f}')
+    print("The molarity of the titrant excess amount is " + f'{titrant_nmm:.4f}' + " mol/L.")
+    
+    # com a concentração, é possível achar o pOH
+    poh = math.log10(titrant_nmm) * -1
+    print("\npOH = " + '-log {} = '.format(f'{titrant_nmm:.4f}') + f'{poh:.4f}')
+    print("\nThe solution's pOH with " + str(titrant_v_used) + " mL of titrant added is " + f'{poh:.4f}' + ".")
+
+    # a partir das relações entre pH e pOH, é possível encontrar o valor de pH da solução com adição 102 mL de titulante
+    print("\npH + pOH = 14")
+    print("pH = 14 - pOH")
+
+    ph = 14 - poh
+    print("\npH = 14 - " + f'{poh:.4f}' + " = " + f'{ph:.4f}')
+    print("\nThe solution's pH with " + str(titrant_v_used) + " mL of titrant added is " + f'{ph:.4f}' + ".")
+
+else:
+    print("Please, enter valid values for molarity and volume.")
