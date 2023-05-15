@@ -68,18 +68,18 @@ elif titrant_v_used == eq_point:
     
     # primeiramente, é calculado o nº de mols do analito (H3O+)
     n_mol_analyte = analyte_mm * (analyte_v / 1000)
-    print("\nnº mol H3O+ = " + '{} * ({} / 1000) = '.format(analyte_mm, analyte_v) + str(n_mol_analyte))
-    print("The mol number of the analyte is " + str(n_mol_analyte))
+    print("\nnº mol H3O+ = " + '{} * ({} / 1000) = '.format(analyte_mm, analyte_v) + f'{n_mol_analyte:.4f}')
+    print("The mol number of the analyte is " + f'{n_mol_analyte:.4f}')
     
     # como o mL adicionado e as molaridades são as mesmas, temos que nº mol H3O+ = º mol OH-
     print("\n2 H2O \u21CB H3O+ + OH-")
-    print("H3O+ = OH- = 1 \u00D7 10e-7")
+    print("H3O+ = OH- = 1 * 10e-7")
 
-    # portanto, a nova molaridade será dada através do equilíbrio iônico (Kw) da água, que é tabelado
-    kw = 1*10**-14
+    # portanto, a nova molaridade será dada através do equilíbrio iônico da água, que é 10e-7 tanto para o H3O+ quanto para o OH-
+    kw = 1*10**-7
     ph = math.log10(kw) * -1
-    print("\npH = " + '-log {} = '.format('1 \u00D7 10e-7') + str(ph))
-    print("\nThe solution's pH on the equivalence point is " + str(ph) + ".")
+    print("\npH = " + '-log {} = '.format('1 * 10e-7') + f'{ph:.3f}')
+    print("\nThe solution's pH on the equivalence point is " + f'{ph:.3f}' + ".")
 
 # como já não há mais ácido para reagir, o pH é calculado em função do pOH, a concentração de OH- proveniente do excesso adicionado
 elif titrant_v_used > eq_point:
