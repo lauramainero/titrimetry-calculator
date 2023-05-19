@@ -1,11 +1,16 @@
 import math
 
-def calculate():
+def welcome():
     # saudações ao usuário
-
     print("\nHello, welcome to the strong acid-base titrimetry calculator!\n")
 
+welcome()
+
+def information():
     # o usuário deverá disponibilizar o MM do titulante, MM do analito e V do analito, além do Ka
+    global analyte_mm
+    global analyte_v
+    global titrant_mm
 
     analyte_mm = float(input('Please, enter the analyte molarity (mol/L): '))
     analyte_v = float(input('Please, enter the analyte volume (mL): '))
@@ -13,6 +18,7 @@ def calculate():
 
     # o usuário receberá, então, o cálculo do ponto de equivalência
     # passo a passo do cálculo para achar o ponto de equivalência
+    global eq_point
     eq_point = (analyte_mm * analyte_v) / titrant_mm
     print("\nC1V1 = C2V2")
     print("V2 = (C1V1)/C2")
@@ -20,9 +26,16 @@ def calculate():
     print("V2 = " + str(eq_point))
     print("\nThe required volume of titrant to reach the equivalence point is " + str(eq_point) + "mL")
 
+information()
+
+def titrant():
     #o usuário deverá disponibilizar, então, o mL de titulante que foi adicionado
+    global titrant_v_used
     titrant_v_used = float(input('\nPlease, enter the used volume of titrant (mL): '))
 
+titrant()
+
+def calculate():
     # serão feitos os cálculos a partir do volume de titulante inserido em relação ao volume do ponto de equivalência
     # o pH será dado pela dissociação do ácido fraco
     if titrant_v_used == 0:
@@ -182,23 +195,21 @@ def calculate():
     else:
         print("Please, enter valid values for molarity and volume.")
 
+    # função again() para o usuário calcular novamente
+    def again():
+        calc_again = input('''
+        Do you want to calculate again?
+        Please, type Y for yes or N for no.
+        ''')
+
+        if calc_again.upper() == 'Y':
+            titrant()
+            calculate()
+
+        elif calc_again.upper() == 'N':
+            print("T\nThank you for using the titrimetry calculator, see you later!")
+
+        else:
+            again()
     again()
-
-# função again() para o usuário calcular novamente
-def again():
-    calc_again = input('''
-    Do you want to calculate again?
-    Please, type Y for yes or N for no.
-    ''')
-
-    if calc_again.upper() == 'Y':
-        calculate()
-
-
-    elif calc_again.upper() == 'N':
-        print("Thank you for using the titrimetry calculator, see you later!")
-
-    else:
-        again()
-
 calculate()
