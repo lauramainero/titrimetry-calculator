@@ -24,7 +24,7 @@ def information():
     print("V2 = (C1V1)/C2")
     print("\nV2 = " + '({} * {}) / {}'.format(analyte_mm, analyte_v, titrant_mm))
     print("V2 = " + str(eq_point))
-    print("\nThe required volume of titrant to reach the equivalence point is " + str(eq_point) + "mL")
+    print("\nThe required volume of titrant to reach the equivalence point is " + f'{eq_point:.2f}' + " mL.")
 
 information()
 
