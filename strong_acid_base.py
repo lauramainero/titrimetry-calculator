@@ -2,23 +2,20 @@ import math
 
 def welcome():
     # saudações ao usuário
-    print("\nHello, welcome to the strong acid-base titrimetry calculator!\n")
-
+    print("\nHello, welcome to the strong acid-base titrimetry calculator!")
 welcome()
 
 def information():
     # o usuário deverá disponibilizar o MM do titulante, MM do analito e V do analito
-
     global analyte_mm
     global analyte_v
     global titrant_mm
 
-    analyte_mm = float(input('Please, enter the analyte molarity (mol/L): '))
+    analyte_mm = float(input('\nPlease, enter the analyte molarity (mol/L): '))
     analyte_v = float(input('Please, enter the analyte volume (mL): '))
     titrant_mm = float(input('Please, enter the titrant molarity (mol/L): '))
 
     # o usuário receberá, então, o cálculo do ponto de equivalência
-
     eq_point = (analyte_mm * analyte_v) / titrant_mm
 
     # passo a passo do cálculo realizado
@@ -27,7 +24,6 @@ def information():
     print("\nV2 = " + '({} . {}) / {}'.format(analyte_mm, analyte_v, titrant_mm))
     print("V2 = " + f'{eq_point:.2f}')
     print("\nThe required volume of titrant to reach the equivalence point is " + f'{eq_point:.2f}' + " mL.")
- 
 information()
 
 def titrant():
@@ -57,13 +53,13 @@ def calculate():
 
         # em seguida, calcula-se o nº de mols do titulante adicionado (OH-)
         n_mol_titrant = titrant_mm * (titrant_v_used / 1000)
-        print("\nnº mol OH- = " + '{} * ({} / 1000) = '.format(titrant_mm, titrant_v_used) + str(n_mol_titrant))
-        print("The mol number of the titrant volume used is " + str(n_mol_titrant))
+        print("\nnº mol OH- = " + '{} * ({} / 1000) = '.format(titrant_mm, titrant_v_used) + f'{n_mol_titrant:.4f}')
+        print("The mol number of the titrant volume used is " + f'{n_mol_titrant:.4f}' + ".")
 
         # agora, calcula-se o número de mols de H3O+ livre restante no analito
         n_mol_analyte_dr = n_mol_analyte - n_mol_titrant
         print("\nnº mol H3O+ left = " + '{} - {} = '.format(f'{n_mol_analyte:.4f}', n_mol_titrant) + f'{n_mol_analyte_dr:.4f}')
-        print("The mol number of the analyte amount that don't reacted with the titrant is " + f'{n_mol_analyte_dr:.4f}')
+        print("The mol number of the analyte amount that don't reacted with the titrant is " + f'{n_mol_analyte_dr:.4f}' + ".")
     
         # com o número de mols, encontra-se a nova concentração utilizando tambem o novo volume total
         analyte_nmm = n_mol_analyte_dr / (analyte_v / 1000 + titrant_v_used / 1000)
