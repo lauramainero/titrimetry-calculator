@@ -96,8 +96,55 @@ def calculate():
         print('E = (1 * {} + 1 * {})/1 + 1 = '.format(analyte_rp, titrant_rp) + f'{potential:.2f}')
         print("\nThe solution's potential with " + f'{titrant_v_used:.2f}' + " mL is " + f'{potential:.2f}' + "V.")
         
+    # o potencial será calculado com base no potencial 
+    elif titrant_v_used > eq_point:
+
+         # primeiramente, é calculado o nº de mols do analito
+        n_mol_analyte = analyte_mm * (analyte_v / 1000)
+        print("\nnº mol analyte = " + '{} * ({} / 1000) = '.format(f'{analyte_mm:.4f}', analyte_v) + f'{n_mol_analyte:.4f}')
+        print("The mol number of the analyte is " + f'{n_mol_analyte:.4f}')
+
+        # em seguida, calcula-se o nº de mols do titulante adicionado
+        n_mol_titrant = titrant_mm * (titrant_v_used / 1000)
+        print("\nnº mol titrant = " + '{} * ({} / 1000) = '.format(titrant_mm, titrant_v_used) + f'{n_mol_titrant:.5f}')
+        print("The mol number of the titrant volume used is " + f'{n_mol_titrant:.4f}')
+    
+        # em seguida, calcula-se o nº de mols em excesso do titulante
+        n_mol_analyte_dr = n_mol_titrant - n_mol_analyte
+        print("\nnº mol titrant excess = " + '{:.4f} - {:.5f} = '.format(n_mol_titrant, n_mol_analyte) + f'{n_mol_analyte_dr:.5f}' )
+        print("The mol number of the titrant excess is " + f'{n_mol_analyte_dr:.5f}')
+
+        # em seguida, calcula-se o nº de mols do analito que reagiu, ou seja, oxidou/reduziu
+        n_mol_analyte_r = n_mol_analyte - n_mol_analyte_dr
+        print("\nnº mol analyte don't reacted = " + '{:.4f} - {:.4f} = '.format(n_mol_analyte, n_mol_analyte_dr) )
+        print("The mol number of the analyte that don't reacted is " + f'{n_mol_analyte_r:.4f}')
+
+        # por fim, calcula-se o potencial utilizando a equação de Nerst
+        # como essa equação é utilizada na redução, o potencial da espécie que oxida deve ter seu sinal original
+        potential = titrant_rp - 0.0592/1 * math.log10(n_mol_analyte_r/n_mol_analyte_dr)
+        print('E = Eº - 0.0592/nE * log Q' + ", where Q is the ratio between the reacted and the non-reacted species.")
+        print('E = {} - 0.592/1 * log {:.4f}/{:.4f} = '.format(analyte_rp, n_mol_analyte_r, n_mol_analyte_dr) + f'{potential:.2f}')
+        print("\nThe solution's potential with " + f'{titrant_v_used:.2f}' + " mL is " + f'{potential:.2f}' + "V.")
+
     else:
         print("Please, enter valid values for molarity, volume and reduction potentials.")
+
+    def again():
+        calc_again = input('''
+        Do you want to calculate again?
+        Please, type Y for yes or N for no.
+        ''')
+
+        if calc_again.upper() == 'Y':
+            titrant()
+            calculate()
+
+        elif calc_again.upper() == 'N':
+            print("\nThank you for using the titrimetry calculator, see you later!")
+
+        else:
+            again()
+    again()
 calculate()
 
 
