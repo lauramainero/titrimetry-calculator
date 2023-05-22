@@ -40,16 +40,16 @@ def calculate():
     if titrant_v_used == 0:
         ph = math.log10(analyte_mm) * -1
         # passo a passo do cálculo de pH
-        print("\npH = " + '-log {} = '.format(analyte_mm) + str(ph))
-        print("\nThe solution's pH with 0 mL of titrant added is " + str(ph))
+        print("\npH = " + '-log {} = '.format(analyte_mm) + f'{ph:.2f}')
+        print("\nThe solution's pH with 0 mL of titrant added is " + f'{ph:.2f}')
 
     # o pH é calculado em função da concentração de H3O+ proveniente do ácido que não reagiu com a base
     elif titrant_v_used < eq_point:
     
         # primeiramente, é calculado o nº de mols do analito (H3O+)
         n_mol_analyte = analyte_mm * (analyte_v / 1000)
-        print("\nnº mol H3O+ = " + '{} * ({} / 1000) = '.format(f'{analyte_mm:.4f}', analyte_v) + f'{n_mol_analyte:.4f}')
-        print("The mol number of the analyte is " + f'{n_mol_analyte:.4f}')
+        print("\nnº mol H3O+ = " + '{:.4f} * ({} / 1000) = '.format(analyte_mm, analyte_v) + f'{n_mol_analyte:.4f}')
+        print("The mol number of the analyte is " + f'{n_mol_analyte:.4f}' + ".")
 
         # em seguida, calcula-se o nº de mols do titulante adicionado (OH-)
         n_mol_titrant = titrant_mm * (titrant_v_used / 1000)
@@ -58,7 +58,7 @@ def calculate():
 
         # agora, calcula-se o número de mols de H3O+ livre restante no analito
         n_mol_analyte_dr = n_mol_analyte - n_mol_titrant
-        print("\nnº mol H3O+ left = " + '{} - {} = '.format(f'{n_mol_analyte:.4f}', n_mol_titrant) + f'{n_mol_analyte_dr:.4f}')
+        print("\nnº mol H3O+ left = " + '{:.4f} - {} = '.format(n_mol_analyte, n_mol_titrant) + f'{n_mol_analyte_dr:.4f}')
         print("The mol number of the analyte amount that don't reacted with the titrant is " + f'{n_mol_analyte_dr:.4f}' + ".")
     
         # com o número de mols, encontra-se a nova concentração utilizando tambem o novo volume total
@@ -68,8 +68,8 @@ def calculate():
     
         # com a concentração, é possível achar o pH com adição de 10 mL de ácido
         ph = math.log10(analyte_nmm) * -1
-        print("\npH = " + '-log {} = '.format(f'{analyte_nmm:.4f}') + f'{ph:.4f}')
-        print("\nThe solution's pH with " + str(titrant_v_used) + " mL of titrant added is " + f'{ph:.4f}')
+        print("\npH = " + '-log {:.4} = '.format(analyte_nmm) + f'{ph:.4f}')
+        print("\nThe solution's pH with " + f'{titrant_v_used:.2f}' + " mL of titrant added is " + f'{ph:.4f}' + ".")
 
     # o pH é calculado em função do equilíbrio de H2O
     elif titrant_v_used == eq_point:
@@ -94,7 +94,7 @@ def calculate():
 
         # primeiramente, é calculado o nº de mols do analito (H3O+)
         n_mol_analyte = analyte_mm * (analyte_v / 1000)
-        print("\nnº mol H3O+ = " + '{} * ({} / 1000) = '.format(f'{analyte_mm:.4f}', f'{analyte_v:.4f}') + f'{n_mol_analyte:.4f}')
+        print("\nnº mol H3O+ = " + '{:.4f} * ({:.4f} / 1000) = '.format(analyte_mm, analyte_v) + f'{n_mol_analyte:.4f}')
         print("The mol number of the analyte is " + f'{n_mol_analyte:.4f}' + ".")
 
         # em seguida, calcula-se o nº de mols do titulante (OH-)
@@ -104,26 +104,26 @@ def calculate():
 
         # agora, calcula-se o número de mols de OH- em excesso no analito
         n_mol_analyte_ex = n_mol_titrant - n_mol_analyte
-        print("\nnº mol H3O+ left = " + '{} - {} = '.format(f'{n_mol_titrant:.4f}', f'{n_mol_analyte:.4f}') + f'{n_mol_analyte_ex:.4f}')
+        print("\nnº mol H3O+ left = " + '{:.4f} - {:.4f} = '.format(n_mol_titrant, n_mol_analyte) + f'{n_mol_analyte_ex:.4f}')
         print("The mol number of the titrant excess amount is " + f'{n_mol_analyte_ex:.4f}' + ".")
     
         # com o número de mols, encontra-se a concentração do excesso de OH- utilizando tambem o novo volume total
         titrant_nmm = n_mol_analyte_ex / (analyte_v / 1000 + titrant_v_used / 1000)
-        print("\nMM titrant excess = " + '{} / ({} + {}) = '.format(f'{n_mol_analyte_ex:.4f}', f'{analyte_v:.4f}', f'{titrant_v_used:.4f}') + f'{titrant_nmm:.4f}')
+        print("\nMM titrant excess = " + '{:.4f} / ({:.4f} + {:.4f}) = '.format(n_mol_analyte_ex, analyte_v, titrant_v_used) + f'{titrant_nmm:.4f}')
         print("The molarity of the titrant excess amount is " + f'{titrant_nmm:.4f}' + " mol/L.")
     
         # com a concentração, é possível achar o pOH
         poh = math.log10(titrant_nmm) * -1
-        print("\npOH = " + '-log {} = '.format(f'{titrant_nmm:.4f}') + f'{poh:.4f}')
+        print("\npOH = " + '-log {:.4f} = '.format(titrant_nmm) + f'{poh:.4f}')
         print("\nThe solution's pOH with " + str(titrant_v_used) + " mL of titrant added is " + f'{poh:.4f}' + ".")
 
-        # a partir das relações entre pH e pOH, é possível encontrar o valor de pH da solução com adição 102 mL de titulante
+        # a partir das relações entre pH e pOH, é possível encontrar o valor de pH da solução com adição titulante após o PE
         print("\npH + pOH = 14")
         print("pH = 14 - pOH")
 
         ph = 14 - poh
         print("\npH = 14 - " + f'{poh:.4f}' + " = " + f'{ph:.4f}')
-        print("\nThe solution's pH with " + str(titrant_v_used) + " mL of titrant added is " + f'{ph:.4f}' + ".")
+        print("\nThe solution's pH with " + f'{titrant_v_used:.2f}' + " mL of titrant added is " + f'{ph:.4f}' + ".")
 
     else:
         print("Please, enter valid values for molarity and volume.")
