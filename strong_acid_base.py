@@ -16,6 +16,8 @@ def information():
     titrant_mm = float(input('Please, enter the titrant molarity (mol/L): '))
 
     # o usuário receberá, então, o cálculo do ponto de equivalência
+    global eq_point
+    
     eq_point = (analyte_mm * analyte_v) / titrant_mm
 
     # passo a passo do cálculo realizado

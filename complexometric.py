@@ -90,11 +90,19 @@ def calculate():
         print("\nThe solution's analyte potential with " + f'{titrant_v_used:.2f}' + " mL of titrant added is " + f'{p_analyte:.2f}' + ".")
 
     elif titrant_v_used == eq_point:
-        h3o = 10**(-1 * ph)            a4 = (k1*k2*k3*k4)/(h3o**4+k1*h3o**3+k1*k2*h3o**2+k1*k2*k3*h3o+k1*k2*k3*k4)
-        print('({} * {} * {} * {})/{}**4 + {} * {}**3 + {} * {} * {}**2 + {} * {} * {} * {}**1 + {} * {} * {} * {}'.format(k1, k2, k3, k4, h3o, k1, h3o, k1, k2, h3o, k1, k2, k3, h3o, k1, k2, k3, k4))
+        h3o = 10**(-1 * ph)
+        print('\npH = -log {:.2e}'.format(h3o))
+        print("The solution's [H+] with " + '{:.2e}'.format(h3o) + "mol/L.")
         
+        a4 = (k1*k2*k3*k4)/(h3o**4+k1*h3o**3+k1*k2*h3o**2+k1*k2*k3*h3o+k1*k2*k3*k4)
+        print("\nK1K2K3K4/[H+]4 + K1[H+]3 + K1K2[H+]2 + K1K2K3[H+] + K1K2K3K4")
+        print('({} * {} * {} * {})/{}**4 + {} * {}**3 + {} * {} * {}**2 + {} * {} * {} * {}**1 + {} * {} * {} * {}'.format(k1, k2, k3, k4, h3o, k1, h3o, k1, k2, h3o, k1, k2, k3, h3o, k1, k2, k3, k4) + f'{a4:.3f}')
+        print("The solution's \u03B14 is " + f'{a4:.3f}')
+
         k_linha = kabs * a4
-        print("K' = " + '{} * a4 = ' + f'{k_linha:.2e}')
+        print("K' = Kabs * \u03B14")
+        print("\nK' = " + '{} * a4 = ' + f'{k_linha:.2e}')
+        print("The solution's K' is " + f'{k_linha:.2e}')
 
     # elif titrant_v_used > eq_point:
 
