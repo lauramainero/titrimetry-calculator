@@ -1,0 +1,14 @@
+# Files/folders
+main.py
+test.py
+oldcode
+
+# Python
+*.pyc
+*~
+__pycache__
+
+# VSCODE
+.vscode/
+.history/
+*.code-workspace
