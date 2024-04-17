@@ -3,7 +3,7 @@
 
 import math
 
-def calc_rdx():
+def calculate():
     if v_tit_add == 0:
         print("Não é possível calcular o potencial com 0 mL de titulante adicionado.")
 

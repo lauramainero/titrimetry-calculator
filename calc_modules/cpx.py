@@ -3,7 +3,7 @@
 
 import math
 
-def calc_cpx():
+def calculate():
     # serão feitos os cálculos a partir do volume de titulante inserido em relação ao volume do ponto de equivalência
     # como não há EDTA, a concentração de analito livre é a concentração dada
     if v_tit_add == 0:
